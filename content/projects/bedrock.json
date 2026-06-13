@@ -1,0 +1,12 @@
+{
+  "slug": "bedrock",
+  "name": "Bedrock",
+  "description": "Infrastructure and tooling for early-stage technical teams. The boring but load-bearing parts, handled.",
+  "status": "live",
+  "role": "Founder",
+  "links": [
+    { "label": "bedrockteam.com", "url": "https://bedrockteam.com" }
+  ],
+  "featured": true,
+  "order": 3
+}

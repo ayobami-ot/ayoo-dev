@@ -1,0 +1,12 @@
+{
+  "slug": "legworker",
+  "name": "Legworker",
+  "description": "Research automation for people who do their own due diligence. Structured intelligence without the overhead.",
+  "status": "live",
+  "role": "Founder / sole developer",
+  "links": [
+    { "label": "legworker.app", "url": "https://legworker.app" }
+  ],
+  "featured": true,
+  "order": 2
+}
