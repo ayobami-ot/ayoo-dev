@@ -24,7 +24,9 @@ if (typeof window !== "undefined") {
   throw new Error("lib/seo-content/client must not be used on the client");
 }
 
-const PRODUCT_KEY = process.env.CONTENT_API_PRODUCT_KEY ?? "ayoo";
+// `||` (not `??`) so an unset GitHub variable that arrives as an empty build-arg
+// still falls back to the default rather than producing an empty product key.
+const PRODUCT_KEY = process.env.CONTENT_API_PRODUCT_KEY?.trim() || "ayoo";
 const PAGE_SIZE = 50;
 
 // Root route segments that already exist as static pages. Content route groups
