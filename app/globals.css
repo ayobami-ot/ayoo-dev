@@ -209,6 +209,32 @@
   }
 }
 
+/* ── Prose colour tokens (unlayered, must win) ───────────────────────
+   The @tailwindcss/typography plugin emits its default colours (gray-700
+   body, gray-900 headings) that beat the `.prose` overrides in
+   @layer components above — unlayered plugin styles outrank layered ones.
+   In light mode the grey defaults happen to read fine, but in dark mode the
+   body and headings become near-invisible. Re-assert the theme tokens here,
+   unlayered, so they apply in both themes. */
+.prose {
+  --tw-prose-body: var(--fg);
+  --tw-prose-headings: var(--fg);
+  --tw-prose-lead: var(--fg);
+  --tw-prose-links: var(--accent);
+  --tw-prose-bold: var(--fg);
+  --tw-prose-counters: var(--fg-muted);
+  --tw-prose-bullets: var(--fg-faint);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--fg-muted);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--fg-muted);
+  --tw-prose-code: var(--fg);
+  --tw-prose-pre-code: var(--fg);
+  --tw-prose-pre-bg: var(--bg-subtle);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}
+
 /* ── Cursor animation ────────────────────────────────────────────── */
 @keyframes blink {
   0%, 100% { opacity: 1; }
