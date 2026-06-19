@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s · Ayo Owolabi",
   },
   description:
-    "Technical founder building a portfolio of products and writing about where technology is going.",
+    "Building a portfolio of products and writing about where technology is going.",
   openGraph: {
     type: "website",
     locale: "en_US",

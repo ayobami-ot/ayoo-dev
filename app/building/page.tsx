@@ -20,8 +20,8 @@ export default async function BuildingPage() {
       <div className="mb-10">
         <h1 className="text-2xl font-semibold text-[var(--fg)] mb-2">Building</h1>
         <p className="text-sm text-[var(--fg-muted)] max-w-prose">
-          A portfolio of products at different stages. I operate as a solo founder
-          across all of these — some are live, some are in progress.
+          A portfolio of products at different stages. I build all of these
+          myself. Some are live, some are still taking shape.
         </p>
       </div>
 

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 // Update this page whenever your focus changes.
 // See nownownow.com for the convention.
-const LAST_UPDATED = "2026-06-13";
+const LAST_UPDATED = "2026-06-19";
 
 export default function NowPage() {
   return (
@@ -37,13 +37,15 @@ export default function NowPage() {
             Building
           </h2>
           <p>
-            Primarily focused on Scarab HQ — shipping the content pipeline that
-            feeds this site and opening it up for other operators to use. The
-            architecture is mostly done; I&apos;m working on the onboarding experience
-            and documentation.
+            Most of my attention is on Scarab HQ, the AI-augmented back office
+            that lets one person run every channel from a single place. The architecture is
+            mostly done, so the work now is the onboarding experience and getting
+            it into the hands of real operators.
           </p>
           <p className="mt-3 text-[var(--fg-muted)]">
-            Also doing early customer discovery for Legworker.
+            Minipod and Legworker are both live, so a lot of the work there is
+            listening to users and refining. Intentlift is still early, validating
+            whether the idea holds up.
           </p>
         </section>
 
@@ -52,8 +54,8 @@ export default function NowPage() {
             Writing
           </h2>
           <p>
-            Building up a cadence on this site. Trying to publish twice a week —
-            a mix of longer essays and shorter observations.
+            Finding a rhythm with writing here. A mix of longer essays and
+            shorter observations as things click into place.
           </p>
         </section>
 
@@ -62,8 +64,8 @@ export default function NowPage() {
             Reading
           </h2>
           <p>
-            <em>The Innovator&apos;s Dilemma</em> by Clayton Christensen — re-reading it
-            with fresh eyes now that I&apos;m on the operator side rather than the
+            <em>The Innovator&apos;s Dilemma</em> by Clayton Christensen. Re-reading
+            it with fresh eyes now that I&apos;m on the operator side rather than the
             advisory side. Hits differently.
           </p>
           <p className="mt-3 text-[var(--fg-muted)]">

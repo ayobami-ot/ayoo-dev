@@ -13,9 +13,13 @@ export function PersonJsonLd({ url = "https://ayoo.dev" }: PersonLdProps) {
       "https://github.com/ayobami-ot",
       "https://www.linkedin.com/in/ayo-owolabi-516906b2/",
     ],
-    jobTitle: "Technical Founder",
+    jobTitle: "Founder",
+    homeLocation: {
+      "@type": "Place",
+      name: "Newcastle upon Tyne, UK",
+    },
     description:
-      "Technical founder building a portfolio of products and writing about where technology is going.",
+      "Builder making software that lets one person operate like a whole team.",
   };
 
   return (

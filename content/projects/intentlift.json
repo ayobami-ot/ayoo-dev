@@ -1,0 +1,12 @@
+{
+  "slug": "intentlift",
+  "name": "Intentlift",
+  "description": "Reading visitor intent and turning it into revenue, so businesses convert more of the traffic they already have. Early days, still validating.",
+  "status": "building",
+  "role": "Designing and building it",
+  "links": [
+    { "label": "intentlift.io", "url": "https://intentlift.io" }
+  ],
+  "featured": false,
+  "order": 5
+}

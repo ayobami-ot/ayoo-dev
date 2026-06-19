@@ -1,12 +1,12 @@
 {
   "slug": "legworker",
   "name": "Legworker",
-  "description": "Research automation for people who do their own due diligence. Structured intelligence without the overhead.",
+  "description": "Job search automation. It handles the repetitive legwork of finding and applying to roles, so your time goes to the conversations that actually matter.",
   "status": "live",
-  "role": "Founder / sole developer",
+  "role": "Built and run by me",
   "links": [
     { "label": "legworker.app", "url": "https://legworker.app" }
   ],
   "featured": true,
-  "order": 2
+  "order": 3
 }

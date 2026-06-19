@@ -6,7 +6,7 @@ import { CopyButton } from "@/components/copy-button";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Technical founder building a portfolio of products. Speaker bio and contact.",
+  description: "Ayo Owolabi builds software that solves real problems for the people who run things. Bio and contact.",
 };
 
 const socials = [
@@ -49,18 +49,19 @@ export default async function AboutPage() {
 
       <div className="mb-12 max-w-prose">
         <p className="text-sm text-[var(--fg)] leading-relaxed mb-4">
-          I&apos;m Ayo — a technical founder and operator. I build products at the
-          intersection of AI and high-leverage solo work: content engines, research
-          tools, developer infrastructure.
+          I&apos;m Ayo, a builder based in Newcastle upon Tyne. I make software that
+          solves real, unglamorous problems: the back-office work that quietly runs
+          a business, handled so the people doing it can focus on what matters.
         </p>
         <p className="text-sm text-[var(--fg-muted)] leading-relaxed mb-4">
-          My thesis is simple: AI is compressing what used to require a team of
-          specialists into what one person with the right tools can do alone. I&apos;m
-          building for that person — and I am that person.
+          My thesis is simple. The leverage one person can get from good software
+          is enormous, and growing. Work that used to need a whole team can
+          increasingly be done well by a single focused person with the right
+          tools. I build for that person, and most days I am that person.
         </p>
         <p className="text-sm text-[var(--fg-muted)] leading-relaxed">
-          I write here about what I&apos;m building and what I&apos;m learning. If
-          something resonates, I&apos;d like to hear from you.
+          I write here about what I&apos;m building and what I&apos;m learning along
+          the way. If something resonates, I&apos;d like to hear from you.
         </p>
       </div>
 

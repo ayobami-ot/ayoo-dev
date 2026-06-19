@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const slug = searchParams.get("slug");
 
   let title = "Ayo Owolabi";
-  let subtitle = "Technical founder. Building products. Writing about tech.";
+  let subtitle = "Building products. Writing about where tech is going.";
 
   if (slug) {
     const post = await content.getPostBySlug(slug);

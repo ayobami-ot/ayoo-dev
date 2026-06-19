@@ -1,0 +1,12 @@
+{
+  "slug": "minipod",
+  "name": "Minipod",
+  "description": "The calm back office for coaches. Clients, scheduling, and the day-to-day admin, handled in one quiet place so the work can stay about the people.",
+  "status": "live",
+  "role": "Built and run by me",
+  "links": [
+    { "label": "minipodapp.com", "url": "https://minipodapp.com" }
+  ],
+  "featured": true,
+  "order": 2
+}

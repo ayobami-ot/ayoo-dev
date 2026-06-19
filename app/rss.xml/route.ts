@@ -25,7 +25,7 @@ export async function GET() {
   <channel>
     <title>${AUTHOR}</title>
     <link>${SITE_URL}</link>
-    <description>Technical founder building products and writing about where technology is going.</description>
+    <description>Building a portfolio of products and writing about where technology is going.</description>
     <language>en</language>
     <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>

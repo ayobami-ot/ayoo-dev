@@ -1,12 +1,12 @@
 {
   "slug": "bedrock",
   "name": "Bedrock",
-  "description": "Infrastructure and tooling for early-stage technical teams. The boring but load-bearing parts, handled.",
+  "description": "My consultancy. Hands-on product and engineering work for teams that need to ship something real, quickly.",
   "status": "live",
   "role": "Founder",
   "links": [
     { "label": "bedrockteam.com", "url": "https://bedrockteam.com" }
   ],
-  "featured": true,
-  "order": 3
+  "featured": false,
+  "order": 4
 }

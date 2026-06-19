@@ -5,7 +5,7 @@ import { WritingRow } from "@/components/writing-row";
 
 export const metadata: Metadata = {
   title: "Writing",
-  description: "Thinking out loud about building, technology, and operating at small scale.",
+  description: "Thinking out loud about building, technology, and where it's headed.",
 };
 
 interface Props {
@@ -31,7 +31,7 @@ export default async function WritingPage({ searchParams }: Props) {
         <h1 className="text-2xl font-semibold text-[var(--fg)] mb-2">Writing</h1>
         <p className="text-sm text-[var(--fg-muted)]">
           {allPosts.length} post{allPosts.length !== 1 ? "s" : ""} — thinking out loud about
-          building, technology, and operating at small scale.
+          building, technology, and where it&apos;s headed.
         </p>
       </div>
 

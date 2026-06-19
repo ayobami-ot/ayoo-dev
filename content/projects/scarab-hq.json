@@ -1,10 +1,12 @@
 {
   "slug": "scarab-hq",
   "name": "Scarab HQ",
-  "description": "A content engine for solo operators. Takes ideas from raw notes to published, structured content without the friction.",
+  "description": "An AI-augmented back office for busy founders. Every channel you work across in one place, with the routine work handled, so one person can operate like a whole team.",
   "status": "building",
-  "role": "Founder / sole developer",
-  "links": [],
+  "role": "Designing and building it",
+  "links": [
+    { "label": "scarabhq.com", "url": "https://scarabhq.com" }
+  ],
   "featured": true,
   "order": 1
 }

@@ -9,7 +9,7 @@ import { HeroCursor } from "@/components/hero-cursor";
 export const metadata: Metadata = {
   title: "Ayo Owolabi",
   description:
-    "Technical founder building a portfolio of products and writing about where technology is going.",
+    "Building a portfolio of products and writing about where technology is going.",
 };
 
 export default async function HomePage() {
@@ -32,13 +32,14 @@ export default async function HomePage() {
           <HeroCursor />
         </div>
         <p className="text-base text-[var(--fg)] leading-relaxed max-w-prose">
-          Technical founder. Building a portfolio of products and writing about
-          where technology is going.
+          Building a portfolio of products and writing about where technology is
+          going.
         </p>
         <p className="mt-4 text-sm text-[var(--fg-muted)] leading-relaxed max-w-prose">
-          I build tools that make small operators more capable — content engines,
-          research automation, developer infrastructure. If you&apos;re interested
-          in what I&apos;m building or thinking, this is the place.
+          I build software that takes real problems off people&apos;s plates: the
+          scattered, repetitive work that quietly runs a business, handled well so
+          one person can operate like a team. If you&apos;re curious about what
+          I&apos;m building or how I think about it, have a look around.
         </p>
       </section>
 
@@ -117,8 +118,8 @@ export default async function HomePage() {
       {/* Contact hook */}
       <section className="text-sm text-[var(--fg-muted)] leading-relaxed">
         <p className="max-w-prose">
-          If you&apos;re organising something and want a technical founder who can
-          speak to building with AI —{" "}
+          If you&apos;re organising something and want someone who can speak to
+          building with AI without the hype,{" "}
           <Link
             href="/about"
             className="text-[var(--accent)] hover:underline underline-offset-3"
