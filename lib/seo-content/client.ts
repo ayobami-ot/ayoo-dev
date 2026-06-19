@@ -56,20 +56,37 @@ async function apiFetch(path: string): Promise<unknown> {
   const cfg = config();
   if (!cfg) throw new Error("content API is not configured");
 
+  const url = `${cfg.baseUrl}${path}`;
   let res: Response;
   try {
-    res = await fetch(`${cfg.baseUrl}${path}`, {
-      headers: { Authorization: `Bearer ${cfg.token}` },
+    res = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${cfg.token}`,
+        Accept: "application/json",
+      },
     });
   } catch (err) {
     throw new Error(
-      `content API request failed (${path}): ${(err as Error).message}`,
+      `content API request failed (${url}): ${(err as Error).message}`,
     );
   }
+
+  const text = await res.text();
   if (!res.ok) {
-    throw new Error(`content API returned ${res.status} for ${path}`);
+    throw new Error(
+      `content API returned ${res.status} for ${url}: ${text.slice(0, 200)}`,
+    );
   }
-  return res.json();
+  try {
+    return JSON.parse(text);
+  } catch {
+    const contentType = res.headers.get("content-type") ?? "unknown";
+    throw new Error(
+      `content API returned non-JSON (content-type: ${contentType}) for ${url}. ` +
+        `First bytes: "${text.slice(0, 120).replace(/\s+/g, " ").trim()}". ` +
+        `Check that CONTENT_API_BASE_URL points at the Scarab API host (not an app/login page) and CONTENT_API_READ_TOKEN is valid.`,
+    );
+  }
 }
 
 function isRenderableGroup(routeGroup: string): boolean {
