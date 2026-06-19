@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
 import { SITE_URL } from "@/lib/site";
 import {
   listPublishedAssets,
   listRouteGroups,
 } from "@/lib/seo-content/client";
-import { humanizeGroup } from "@/lib/seo-content/format";
+import { formatDate, humanizeGroup } from "@/lib/seo-content/format";
 
 interface Props {
   params: Promise<{ routeGroup: string }>;
@@ -34,9 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function HubPage({ params }: Props) {
   const { routeGroup } = await params;
   const assets = await listPublishedAssets();
-  const inGroup = assets.filter(
-    (a) => a.routeGroup === routeGroup && a.index,
-  );
+  const inGroup = assets
+    .filter((a) => a.routeGroup === routeGroup && a.index)
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   if (inGroup.length === 0) notFound();
 
   return (
@@ -48,6 +47,9 @@ export default async function HubPage({ params }: Props) {
         <h1 className="text-2xl font-semibold text-[var(--fg)] mb-2">
           {humanizeGroup(routeGroup)}
         </h1>
+        <p className="text-sm text-[var(--fg-muted)]">
+          {inGroup.length} {inGroup.length === 1 ? "piece" : "pieces"}
+        </p>
       </div>
 
       <div>
@@ -55,23 +57,17 @@ export default async function HubPage({ params }: Props) {
           <Link
             key={asset.slug}
             href={`/${routeGroup}/${asset.slug}`}
-            className="group flex items-start justify-between gap-4 py-4 border-b border-[var(--border)]"
+            className="group flex items-baseline gap-4 py-2.5 border-b border-[var(--border)] hover:border-[var(--fg-faint)] transition-colors"
           >
-            <div>
-              <span className="text-sm font-medium text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
-                {asset.title}
-              </span>
-              {asset.metaDescription && (
-                <p className="mt-1 text-xs text-[var(--fg-muted)] leading-relaxed max-w-prose">
-                  {asset.metaDescription}
-                </p>
-              )}
-            </div>
-            <ArrowRight
-              size={13}
-              strokeWidth={1.5}
-              className="mt-1 shrink-0 text-[var(--fg-faint)] group-hover:text-[var(--accent)] transition-colors"
-            />
+            <time
+              dateTime={asset.publishedAt}
+              className="shrink-0 text-xs text-[var(--fg-muted)] tabular-nums w-24"
+            >
+              {formatDate(asset.publishedAt)}
+            </time>
+            <span className="flex-1 text-sm text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
+              {asset.title}
+            </span>
           </Link>
         ))}
       </div>

@@ -8,7 +8,7 @@ import {
   listPublishedAssets,
 } from "@/lib/seo-content/client";
 import { ContentBody } from "@/components/seo-content/blocks";
-import { humanizeGroup } from "@/lib/seo-content/format";
+import { formatDate, humanizeGroup } from "@/lib/seo-content/format";
 
 interface Props {
   params: Promise<{ routeGroup: string; slug: string }>;
@@ -74,9 +74,18 @@ export default async function ContentPage({ params }: Props) {
         </Link>
 
         <header className="mb-10">
-          <h1 className="text-2xl font-semibold text-[var(--fg)] leading-snug">
+          <h1 className="text-2xl font-semibold text-[var(--fg)] leading-snug mb-4">
             {asset.title}
           </h1>
+          <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--fg-muted)]">
+            <time dateTime={asset.publishedAt} className="tabular-nums">
+              {formatDate(asset.publishedAt)}
+            </time>
+            {asset.updatedAt &&
+              formatDate(asset.updatedAt) !== formatDate(asset.publishedAt) && (
+                <span>updated {formatDate(asset.updatedAt)}</span>
+              )}
+          </div>
         </header>
 
         <hr className="mb-10" />
