@@ -11,6 +11,20 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Scarab SEO content layer — fetched at build time only. These build args are
+# consumed during `next build` and are NOT carried into the runner stage, so the
+# read token never ships in the final image. If unset, the content layer is
+# disabled and the site builds without the SEO pages.
+ARG CONTENT_API_BASE_URL
+ARG CONTENT_API_READ_TOKEN
+ARG CONTENT_API_PRODUCT_KEY
+ARG NEXT_PUBLIC_SITE_URL
+ENV CONTENT_API_BASE_URL=$CONTENT_API_BASE_URL \
+    CONTENT_API_READ_TOKEN=$CONTENT_API_READ_TOKEN \
+    CONTENT_API_PRODUCT_KEY=$CONTENT_API_PRODUCT_KEY \
+    NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+
 RUN node node_modules/next/dist/bin/next build
 
 # ── runner ────────────────────────────────────────────────────────────

@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Scarab fires this when SEO content is published/updated, triggering a
+  # rebuild so the static content pages (and any new route groups) go live.
+  repository_dispatch:
+    types: [content-published]
 
 jobs:
   deploy:
@@ -27,8 +31,18 @@ jobs:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
+          # Scarab SEO content layer — build-time only. Leave the secrets unset
+          # to build the site without the content pages.
+          CONTENT_API_BASE_URL: ${{ secrets.CONTENT_API_BASE_URL }}
+          CONTENT_API_READ_TOKEN: ${{ secrets.CONTENT_API_READ_TOKEN }}
+          CONTENT_API_PRODUCT_KEY: ${{ vars.CONTENT_API_PRODUCT_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
         run: |
           docker build \
+            --build-arg CONTENT_API_BASE_URL="$CONTENT_API_BASE_URL" \
+            --build-arg CONTENT_API_READ_TOKEN="$CONTENT_API_READ_TOKEN" \
+            --build-arg CONTENT_API_PRODUCT_KEY="$CONTENT_API_PRODUCT_KEY" \
+            --build-arg NEXT_PUBLIC_SITE_URL="$NEXT_PUBLIC_SITE_URL" \
             -t $REGISTRY/$REPOSITORY:$IMAGE_TAG \
             -t $REGISTRY/$REPOSITORY:latest .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG

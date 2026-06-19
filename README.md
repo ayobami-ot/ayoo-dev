@@ -46,6 +46,52 @@ Drop a `.json` file in `content/projects/`. Schema:
 - **Font:** Change the Google Font import in `app/layout.tsx` (swap `Geist_Mono` for another) and update `--font-geist-mono` CSS variable references in `globals.css` to match the new variable name.
 - **Accent colour:** Change `--accent` in `app/globals.css` — one variable in `:root` (light) and one in `.dark`. Done.
 
+## Scarab SEO content layer
+
+Beyond the hand-authored MDX writing, the site renders SEO/GEO content published
+by the **Scarab content OS**. These pages are fetched **at build time** from a
+read API and statically generated; nothing is fetched at runtime and the read
+token never reaches the client or the runtime image.
+
+**How it works**
+
+- The build-time data layer lives in `lib/seo-content/`. It pages through the
+  published list and fetches each asset by slug.
+- Routing is **archetype-agnostic**: `app/[routeGroup]/[slug]/page.tsx` and the
+  hub `app/[routeGroup]/page.tsx` generate their params from the published list,
+  so whatever route groups Scarab emits (`compare`, `guides`, `explainers`,
+  `takes`, `teardowns`, …) become URL subdirectories automatically on the next
+  rebuild — no code changes. Existing static routes always take precedence, and
+  reserved root segments are skipped (`lib/seo-content/client.ts`).
+- Block content is rendered by `components/seo-content/blocks.tsx`. Inline HTML
+  (`paragraph`/`list`) is sanitized to an allowlist (`strong, em, b, i, a[href],
+  code, br`) by `rich-text.tsx`, which parses to React elements and never uses
+  `dangerouslySetInnerHTML` — unknown tags/attrs degrade to plain text.
+- `noindex` assets get a `robots: noindex` meta and are excluded from the
+  sitemap; the sitemap and footer pick up the hub pages automatically.
+
+**Environment** (build-time only — see `.env.example`)
+
+| Var | Required | Purpose |
+| --- | --- | --- |
+| `CONTENT_API_BASE_URL` | to enable | Scarab content OS host |
+| `CONTENT_API_READ_TOKEN` | to enable | Bearer token for the read API (secret) |
+| `CONTENT_API_PRODUCT_KEY` | no (default `ayoo`) | This storefront's product key in Scarab |
+| `NEXT_PUBLIC_SITE_URL` | no (default `https://ayoo.dev`) | Base for canonicals/sitemap |
+
+If the API vars are unset, the content layer is disabled and the site builds
+without those pages. If they are set but the API errors, **the build fails
+loudly** rather than shipping empty content.
+
+**Deployment** — the GitHub Actions deploy (`.github/workflows/deploy.yml`)
+passes these to `docker build` as build args (consumed in the builder stage,
+not carried into the runner image). Wire `CONTENT_API_BASE_URL` /
+`CONTENT_API_READ_TOKEN` as repo **secrets** and `CONTENT_API_PRODUCT_KEY` /
+`NEXT_PUBLIC_SITE_URL` as repo **variables**. A publish in Scarab fires
+`repository_dispatch` with `event_type: content-published`, which the workflow
+listens for and rebuilds/redeploys — so new content (and new route groups) go
+live automatically.
+
 ## How to switch content source to Supabase
 
 1. Install the Supabase client: `npm install @supabase/supabase-js`
