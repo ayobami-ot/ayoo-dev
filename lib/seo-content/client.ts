@@ -95,6 +95,38 @@ function isRenderableGroup(routeGroup: string): boolean {
   return Boolean(routeGroup) && !RESERVED_ROUTE_GROUPS.has(routeGroup);
 }
 
+// The list endpoint wraps the array in `data` (with `pagination` alongside).
+// Be tolerant of other common envelope keys so a minor API change can't silently
+// zero out the content again.
+function extractList(raw: unknown): ContentListItem[] {
+  if (Array.isArray(raw)) return raw as ContentListItem[];
+  if (raw && typeof raw === "object") {
+    const obj = raw as Record<string, unknown>;
+    for (const key of ["data", "items", "results", "assets"]) {
+      if (Array.isArray(obj[key])) return obj[key] as ContentListItem[];
+    }
+    for (const value of Object.values(obj)) {
+      if (Array.isArray(value)) return value as ContentListItem[];
+    }
+  }
+  return [];
+}
+
+// The single-asset endpoint may return the asset directly or wrapped in an
+// envelope (`data` / `item` / `asset`).
+function extractAsset(raw: unknown): ContentAsset | null {
+  if (!raw || typeof raw !== "object") return null;
+  const obj = raw as Record<string, unknown>;
+  for (const key of ["data", "item", "asset"]) {
+    const value = obj[key];
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      return value as ContentAsset;
+    }
+  }
+  if ("slug" in obj || "body" in obj) return obj as unknown as ContentAsset;
+  return null;
+}
+
 /** Full published list, paginated through every page. Empty when disabled. */
 export async function listPublishedAssets(): Promise<ContentListItem[]> {
   if (!isContentApiConfigured()) return [];
@@ -104,13 +136,13 @@ export async function listPublishedAssets(): Promise<ContentListItem[]> {
   let totalPages = 1;
 
   do {
-    const raw = (await apiFetch(
+    const raw = await apiFetch(
       `/api/content/${PRODUCT_KEY}?channel=seo&status=published&page=${page}&page_size=${PAGE_SIZE}`,
-    )) as ContentListResponse;
+    );
 
-    const items = Array.isArray(raw?.items) ? raw.items : [];
-    all.push(...items);
-    totalPages = raw?.pagination?.totalPages ?? page;
+    all.push(...extractList(raw));
+    totalPages =
+      (raw as ContentListResponse)?.pagination?.totalPages ?? page;
     page += 1;
   } while (page <= totalPages);
 
@@ -138,15 +170,11 @@ export async function getAssetBySlug(
 ): Promise<ContentAsset | null> {
   if (!isContentApiConfigured()) return null;
 
-  const raw = (await apiFetch(
+  const raw = await apiFetch(
     `/api/content/${PRODUCT_KEY}/${encodeURIComponent(slug)}`,
-  )) as ContentAsset | { item: ContentAsset } | null;
+  );
 
-  const asset =
-    raw && "item" in (raw as object)
-      ? (raw as { item: ContentAsset }).item
-      : (raw as ContentAsset | null);
-
+  const asset = extractAsset(raw);
   if (!asset || !isRenderableGroup(asset.routeGroup)) return null;
   return asset;
 }

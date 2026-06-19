@@ -33,7 +33,7 @@ export interface ContentAsset extends ContentListItem {
 }
 
 export interface ContentListResponse {
-  items: ContentListItem[];
+  data: ContentListItem[];
   pagination: {
     page: number;
     pageSize: number;
